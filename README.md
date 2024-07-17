@@ -16,11 +16,11 @@ Weight, Species, Length, Length2, Length3, Height, Width
 
 ## Setup
 
-1. Make a repository clone:
+1. Made a repository clone:
 
-    `{{ cd fish-weight-prediction git clone https://github.com/yourusername/fish-weight-prediction.git
+    `{{ cd fish-weight-prediction git clone https://github.com/Shriram002/Shriram002-Enterprise-System-determine-the-Fish-Weight
 
-2. Establish and turn on a virtual environment:
+2. Established and turn on a virtual environment:
 
     ``} python -m venv venv source venv/bin/activate # Use `venv\Scripts\activate} on Windows }}
 
@@ -28,11 +28,11 @@ Weight, Species, Length, Length2, Length3, Height, Width
 
     The command pip install -r requirements.txt
 
-4. Verify that LabelEncoder and the trained model, {model.pkl}, are located in the root directory.
+4. Verifyied that LabelEncoder and the trained model, {model.pkl}, are located in the root directory.
 
 # Usage
 
-Launch the Flask app first.
+Launched the Flask app first.
 
     This is a flask run.
 
@@ -44,12 +44,10 @@ Launch the Flask app first.
 
 Using Render, to implement this application:
 
-Visit [Render](https://render.com/) and register or log in.
+1. Link your GitHub repository to a new Web Service that you create.
 
-2. Link your GitHub repository to a new Web Service that you create.
+2. Should `app.py` not be in the root, specify the root directory.
 
-3. Should `app.py` not be in the root, specify the root directory.
+3. gunicorn app:app should be the start command setting.
 
-`gunicorn app:app} should be the start command setting.
-
-5. Select "Create Web Service" by clicking.
+4. Select "Create Web Service" by clicking.

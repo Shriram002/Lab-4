@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template
 import joblib
 import numpy as np
 
@@ -20,12 +20,13 @@ def predict():
     height = float(request.form['height'])
     width = float(request.form['width'])
 
-    # Example: Assuming you trained with 11 features, create a feature vector
-    data = np.array([[length1, length2, length3, height, width, 0, 0, 0, 0, 0, 0]])  # Example with additional zeros for remaining features
+    # Create a feature vector based on the model's requirements
+    data = np.array([[length1, length2, length3, height, width, 0, 0, 0, 0, 0, 0]])
 
     # Perform prediction
-    prediction = model.predict(data)
+    prediction = model.predict(data)[0]  # Assuming the model returns a single prediction
 
+    # Pass prediction to the template
     return render_template('index.html', prediction=prediction)
 
 if __name__ == "__main__":

@@ -1,11 +1,12 @@
-from flask import Flask, request, render_template
-import joblib
-import numpy as np
+from flask import Flask, request, jsonify, render_template
+import pickle
+import pandas as pd
 
 app = Flask(__name__)
 
-# Load the trained model
-model = joblib.load('fish_weight_model.pkl')
+# Load the model and LabelEncoder
+with open('model.pkl', 'rb') as f:
+    model, le = pickle.load(f)
 
 @app.route('/')
 def home():
@@ -13,21 +14,20 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Retrieve data from the HTML form
-    length1 = float(request.form['length1'])
-    length2 = float(request.form['length2'])
-    length3 = float(request.form['length3'])
-    height = float(request.form['height'])
-    width = float(request.form['width'])
+    data = request.form.to_dict()
+    df = pd.DataFrame([data])
+    
+    # Encode the 'Species' column
+    df['Species'] = le.transform(df['Species'])
+    
+    # Convert the input data to float
+    for column in df.columns:
+        df[column] = df[column].astype(float)
+    
+    prediction = model.predict(df)
+    prediction_result = round(prediction[0], 2)
+    
+    return render_template('index.html', prediction_text=f'Predicted Weight: {prediction_result} grams')
 
-    # Create a feature vector based on the model's requirements
-    data = np.array([[length1, length2, length3, height, width, 0, 0, 0, 0, 0, 0]])
-
-    # Perform prediction
-    prediction = model.predict(data)[0]  # Assuming the model returns a single prediction
-
-    # Pass prediction to the template
-    return render_template('index.html', prediction=prediction)
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)

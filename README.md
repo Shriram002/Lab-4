@@ -34,11 +34,7 @@ Weight, Species, Length, Length2, Length3, Height, Width
 
 Launched the Flask app first.
 
-    This is a flask run.
-
-2. Go to {http://127.0.0.1:5000} in your browser after opening it.
-
-3. Enter the fish's measurements and species, then select "Predict" to obtain the estimated weight.
+Enter the fish's measurements and species, then select "Predict" to obtain the estimated weight.
 
 ## Render-Deployed
 
